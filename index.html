@@ -96,8 +96,8 @@
         }
 
         .apply-btn {
-            background: linear-gradient(45deg, #ff1493, #ff4500);
-            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid white;
             color: white;
             padding: 20px 50px;
             border-radius: 50px;
@@ -106,15 +106,103 @@
             font-size: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
             text-transform: uppercase;
             letter-spacing: 1px;
+            backdrop-filter: blur(10px);
         }
 
         .apply-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.6);
-            background: linear-gradient(45deg, #ff0080, #ff6347);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .about-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .about-content {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 40px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .about-content h1 {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .about-content h2 {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 1.8rem;
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+            color: #ff1493;
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .about-content ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .about-content li {
+            margin-bottom: 10px;
+            font-size: 16px;
         }
 
         @media (max-width: 768px) {
@@ -143,13 +231,47 @@
     <div class="overlay"></div>
     
     <header>
-        <button class="about-btn">About</button>
+        <button class="about-btn" onclick="openAbout()">About</button>
     </header>
     
     <main class="main-content">
         <h1 class="main-title"><span style="font-weight: 300;">hate</span> island</h1>
         <button class="apply-btn">Apply</button>
     </main>
+
+    <div class="about-modal" id="aboutModal">
+        <div class="about-content">
+            <button class="close-btn" onclick="closeAbout()">&times;</button>
+            <h1>Welcome to Hate Island - The Ultimate Reality Experience</h1>
+            
+            <p>Are you ready for the most intense dating show on television? Hate Island brings together singles from around the world in a luxury villa where love, drama, and competition collide.</p>
+            
+            <h2>What is Hate Island?</h2>
+            <p>Hate Island is a revolutionary dating reality show where contestants must navigate complex relationships, strategic alliances, and unexpected twists. Unlike other dating shows, our islanders face unique challenges that test not just their romantic compatibility, but their ability to overcome differences and find genuine connections.</p>
+            
+            <h2>The Experience</h2>
+            <ul>
+                <li>Live in a stunning Mediterranean villa with breathtaking ocean views</li>
+                <li>Participate in exciting challenges and games designed to bring couples together</li>
+                <li>Navigate dramatic recoupling ceremonies where relationships are put to the test</li>
+                <li>Compete for the ultimate prize while finding your perfect match</li>
+                <li>Experience the thrill of live television with millions of viewers watching your journey</li>
+            </ul>
+            
+            <h2>Who Can Apply?</h2>
+            <p>We're looking for confident, charismatic singles aged 21-30 who are:</p>
+            <ul>
+                <li>Ready to put themselves out there and be vulnerable</li>
+                <li>Comfortable being themselves on camera</li>
+                <li>Looking for genuine love and connection</li>
+                <li>Prepared for an intense, life-changing experience</li>
+            </ul>
+            
+            <p>The casting process is highly competitive, and we're seeking diverse, dynamic personalities who will create compelling television while staying true to themselves.</p>
+            
+            <p><strong>Ready to find love in the most unexpected place? Your journey starts here.</strong></p>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -179,6 +301,32 @@
             // Force video to be muted (required for autoplay on most mobile browsers)
             video.muted = true;
             video.defaultMuted = true;
+        });
+
+        function openAbout() {
+            const modal = document.getElementById('aboutModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAbout() {
+            const modal = document.getElementById('aboutModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside the content
+        document.getElementById('aboutModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAbout();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAbout();
+            }
         });
     </script>
 </body>
