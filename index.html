@@ -73,16 +73,6 @@
             transform: translateY(-2px);
         }
 
-        .main-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 10;
-            width: 100%;
-            max-width: 800px;
-        }
 
         .main-title {
             font-family: 'Josefin Sans', sans-serif;
@@ -117,39 +107,42 @@
             box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
         }
 
-        .about-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .main-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            display: none;
-            overflow-y: auto;
-            animation: slideDown 0.4s ease-out;
+            max-width: 800px;
+            transition: transform 0.6s ease-in-out;
         }
 
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .main-content.slide-down {
+            transform: translate(-50%, 250%);
         }
 
-        .about-content {
+        .about-section {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -250%);
+            text-align: left;
+            z-index: 10;
+            width: 100%;
             max-width: 700px;
-            margin: 50px auto;
             padding: 40px;
             color: white;
             font-family: 'Inter', sans-serif;
             line-height: 1.8;
-            position: relative;
+            transition: transform 0.6s ease-in-out;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .about-section.slide-down {
+            transform: translate(-50%, -50%);
         }
 
         .close-btn {
@@ -175,14 +168,14 @@
             transform: rotate(90deg);
         }
 
-        .about-content h1 {
+        .about-section h1 {
             font-family: 'Josefin Sans', sans-serif;
             font-size: 2.5rem;
             margin-bottom: 30px;
             font-weight: 700;
         }
 
-        .about-content h2 {
+        .about-section h2 {
             font-family: 'Josefin Sans', sans-serif;
             font-size: 1.8rem;
             margin: 30px 0 15px 0;
@@ -190,17 +183,17 @@
             color: #ff1493;
         }
 
-        .about-content p {
+        .about-section p {
             margin-bottom: 20px;
             font-size: 16px;
         }
 
-        .about-content ul {
+        .about-section ul {
             margin-left: 20px;
             margin-bottom: 20px;
         }
 
-        .about-content li {
+        .about-section li {
             margin-bottom: 10px;
             font-size: 16px;
         }
@@ -234,44 +227,42 @@
         <button class="about-btn" onclick="openAbout()">About</button>
     </header>
     
-    <main class="main-content">
+    <main class="main-content" id="mainContent">
         <h1 class="main-title"><span style="font-weight: 300;">hate</span> island</h1>
         <button class="apply-btn">Apply</button>
     </main>
 
-    <div class="about-modal" id="aboutModal">
-        <div class="about-content">
-            <button class="close-btn" onclick="closeAbout()">&times;</button>
-            <h1>Welcome to Hate Island - The Ultimate Reality Experience</h1>
-            
-            <p>Are you ready for the most intense dating show on television? Hate Island brings together singles from around the world in a luxury villa where love, drama, and competition collide.</p>
-            
-            <h2>What is Hate Island?</h2>
-            <p>Hate Island is a revolutionary dating reality show where contestants must navigate complex relationships, strategic alliances, and unexpected twists. Unlike other dating shows, our islanders face unique challenges that test not just their romantic compatibility, but their ability to overcome differences and find genuine connections.</p>
-            
-            <h2>The Experience</h2>
-            <ul>
-                <li>Live in a stunning Mediterranean villa with breathtaking ocean views</li>
-                <li>Participate in exciting challenges and games designed to bring couples together</li>
-                <li>Navigate dramatic recoupling ceremonies where relationships are put to the test</li>
-                <li>Compete for the ultimate prize while finding your perfect match</li>
-                <li>Experience the thrill of live television with millions of viewers watching your journey</li>
-            </ul>
-            
-            <h2>Who Can Apply?</h2>
-            <p>We're looking for confident, charismatic singles aged 21-30 who are:</p>
-            <ul>
-                <li>Ready to put themselves out there and be vulnerable</li>
-                <li>Comfortable being themselves on camera</li>
-                <li>Looking for genuine love and connection</li>
-                <li>Prepared for an intense, life-changing experience</li>
-            </ul>
-            
-            <p>The casting process is highly competitive, and we're seeking diverse, dynamic personalities who will create compelling television while staying true to themselves.</p>
-            
-            <p><strong>Ready to find love in the most unexpected place? Your journey starts here.</strong></p>
-        </div>
-    </div>
+    <section class="about-section" id="aboutSection">
+        <button class="close-btn" onclick="closeAbout()">&times;</button>
+        <h1>Welcome to Hate Island - The Ultimate Reality Experience</h1>
+        
+        <p>Are you ready for the most intense dating show on television? Hate Island brings together singles from around the world in a luxury villa where love, drama, and competition collide.</p>
+        
+        <h2>What is Hate Island?</h2>
+        <p>Hate Island is a revolutionary dating reality show where contestants must navigate complex relationships, strategic alliances, and unexpected twists. Unlike other dating shows, our islanders face unique challenges that test not just their romantic compatibility, but their ability to overcome differences and find genuine connections.</p>
+        
+        <h2>The Experience</h2>
+        <ul>
+            <li>Live in a stunning Mediterranean villa with breathtaking ocean views</li>
+            <li>Participate in exciting challenges and games designed to bring couples together</li>
+            <li>Navigate dramatic recoupling ceremonies where relationships are put to the test</li>
+            <li>Compete for the ultimate prize while finding your perfect match</li>
+            <li>Experience the thrill of live television with millions of viewers watching your journey</li>
+        </ul>
+        
+        <h2>Who Can Apply?</h2>
+        <p>We're looking for confident, charismatic singles aged 21-30 who are:</p>
+        <ul>
+            <li>Ready to put themselves out there and be vulnerable</li>
+            <li>Comfortable being themselves on camera</li>
+            <li>Looking for genuine love and connection</li>
+            <li>Prepared for an intense, life-changing experience</li>
+        </ul>
+        
+        <p>The casting process is highly competitive, and we're seeking diverse, dynamic personalities who will create compelling television while staying true to themselves.</p>
+        
+        <p><strong>Ready to find love in the most unexpected place? Your journey starts here.</strong></p>
+    </section>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -304,25 +295,22 @@
         });
 
         function openAbout() {
-            const modal = document.getElementById('aboutModal');
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            const mainContent = document.getElementById('mainContent');
+            const aboutSection = document.getElementById('aboutSection');
+            
+            mainContent.classList.add('slide-down');
+            aboutSection.classList.add('slide-down');
         }
 
         function closeAbout() {
-            const modal = document.getElementById('aboutModal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+            const mainContent = document.getElementById('mainContent');
+            const aboutSection = document.getElementById('aboutSection');
+            
+            mainContent.classList.remove('slide-down');
+            aboutSection.classList.remove('slide-down');
         }
 
-        // Close modal when clicking outside the content
-        document.getElementById('aboutModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeAbout();
-            }
-        });
-
-        // Close modal with Escape key
+        // Close with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeAbout();
