@@ -12,7 +12,7 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
@@ -22,6 +22,8 @@
             width: 100%;
             top: 0;
             left: 0;
+            touch-action: none;
+            overscroll-behavior: none;
         }
 
         .video-background {
@@ -127,7 +129,7 @@
         }
 
         .main-content.slide-up {
-            transform: translate(-50%, -350%);
+            transform: translate(-50%, -500%);
         }
 
         .about-section {
@@ -146,6 +148,7 @@
             transition: transform 0.6s ease-in-out;
             overflow-y: auto;
             max-height: 80vh;
+            touch-action: pan-y;
         }
 
         .about-section.slide-down {
@@ -167,6 +170,7 @@
             transition: transform 0.6s ease-in-out;
             overflow-y: auto;
             max-height: 85vh;
+            touch-action: pan-y;
         }
 
         .application-section.slide-up {
@@ -224,33 +228,6 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
-        .form-group input[type="range"] {
-            padding: 0;
-            background: transparent;
-            border: none;
-        }
-
-        .form-group input[type="range"]::-webkit-slider-track {
-            background: rgba(255, 255, 255, 0.3);
-            height: 6px;
-            border-radius: 3px;
-        }
-
-        .form-group input[type="range"]::-webkit-slider-thumb {
-            background: #ff1493;
-            height: 20px;
-            width: 20px;
-            border-radius: 50%;
-            cursor: pointer;
-            -webkit-appearance: none;
-        }
-
-        #haterValue {
-            color: #ff1493;
-            font-weight: 600;
-            font-size: 18px;
-            margin-left: 10px;
-        }
 
         .submit-btn {
             background: rgba(255, 255, 255, 0.1);
@@ -422,11 +399,6 @@
                 <input type="text" id="location" name="location" required>
             </div>
             
-            <div class="form-group">
-                <label for="haterLevel">Rate your hater level (1-10)</label>
-                <input type="range" id="haterLevel" name="haterLevel" min="1" max="10" value="5">
-                <span id="haterValue">5</span>
-            </div>
             
             <div class="form-group">
                 <label for="whyHater">Why do you consider yourself a hater? (Max 500 characters)</label>
@@ -508,10 +480,6 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // Update hater level display
-        document.getElementById('haterLevel').addEventListener('input', function(e) {
-            document.getElementById('haterValue').textContent = e.target.value;
-        });
 
         // Handle form submission
         document.getElementById('applicationForm').addEventListener('submit', function(e) {
