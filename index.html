@@ -34,28 +34,6 @@
             filter: brightness(0.7);
         }
 
-        .mobile-background {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-size: cover;
-            background-position: center;
-        }
-
-        @media (max-width: 768px) {
-            .video-background {
-                display: none;
-            }
-            
-            .mobile-background {
-                display: block;
-            }
-        }
 
         .overlay {
             position: absolute;
@@ -156,12 +134,10 @@
     </style>
 </head>
 <body>
-    <video class="video-background" autoplay muted loop playsinline>
+    <video class="video-background" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="">
         <source src="island_drone_1.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
-    
-    <div class="mobile-background"></div>
     
     <div class="overlay"></div>
     
@@ -173,5 +149,36 @@
         <h1 class="main-title"><span style="font-weight: 300;">hate</span> island</h1>
         <button class="apply-btn">Apply</button>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('.video-background');
+            
+            // Try to play the video
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Auto-play was prevented:', error);
+                    
+                    // If autoplay fails, try to play on first user interaction
+                    function enableVideoOnInteraction() {
+                        video.play().then(() => {
+                            // Remove event listeners once video starts
+                            document.removeEventListener('touchstart', enableVideoOnInteraction);
+                            document.removeEventListener('click', enableVideoOnInteraction);
+                        }).catch(e => console.log('Video play failed:', e));
+                    }
+                    
+                    document.addEventListener('touchstart', enableVideoOnInteraction, { once: true });
+                    document.addEventListener('click', enableVideoOnInteraction, { once: true });
+                });
+            }
+            
+            // Force video to be muted (required for autoplay on most mobile browsers)
+            video.muted = true;
+            video.defaultMuted = true;
+        });
+    </script>
 </body>
 </html>
