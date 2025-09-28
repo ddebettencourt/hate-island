@@ -487,8 +487,43 @@
         // Handle form submission
         document.getElementById('applicationForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thanks for applying! We\'ll be in touch soon.');
-            closeApplication();
+            
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            
+            // Collect form data
+            const formData = new FormData();
+            formData.append('fullName', document.getElementById('fullName').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('age', document.getElementById('age').value);
+            formData.append('location', document.getElementById('location').value);
+            formData.append('whyHater', document.getElementById('whyHater').value);
+            formData.append('strategy', document.getElementById('strategy').value);
+            
+            // Submit to Google Apps Script
+            fetch('https://script.google.com/macros/s/AKfycbypmkC9ycZXfxo7vP9c_uRo8vtfFATPbremcoKTYDq5WAYkk-f2BUSFaEmHJzhLTETb/exec', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Thanks for applying! We\'ll be in touch soon.');
+                    document.getElementById('applicationForm').reset();
+                    closeApplication();
+                } else {
+                    throw new Error('Submission failed');
+                }
+            })
+            .catch(error => {
+                alert('There was an error submitting your application. Please try again.');
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                submitBtn.textContent = 'Submit Application';
+                submitBtn.disabled = false;
+            });
         });
 
         // Close with Escape key
