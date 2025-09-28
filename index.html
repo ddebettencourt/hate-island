@@ -398,19 +398,28 @@
             </div>
             
             <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <div class="form-group">
                 <label for="location">Location (City, State)</label>
                 <input type="text" id="location" name="location" required>
             </div>
             
-            
             <div class="form-group">
-                <label for="whyHater">Why do you consider yourself a hater? (Max 500 characters)</label>
-                <textarea id="whyHater" name="whyHater" maxlength="500" rows="4" required></textarea>
+                <label for="haterTime">Describe a time when you were a hater (150 words max)</label>
+                <textarea id="haterTime" name="haterTime" rows="4" required placeholder="Share a specific example..."></textarea>
             </div>
             
             <div class="form-group">
-                <label for="strategy">What's your strategy for winning? (Max 300 characters)</label>
-                <textarea id="strategy" name="strategy" maxlength="300" rows="3" required></textarea>
+                <label for="friendsDescribe">How would your friends describe you? (100 words max)</label>
+                <textarea id="friendsDescribe" name="friendsDescribe" rows="3" required placeholder="Be honest..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="smallIssue">What's something that most people would consider a small issue that you particularly hate? Why? (150 words max)</label>
+                <textarea id="smallIssue" name="smallIssue" rows="4" required placeholder="Tell us about your pet peeve..."></textarea>
             </div>
             
             <button type="submit" class="submit-btn">Submit Application</button>
@@ -497,9 +506,11 @@
             formData.append('fullName', document.getElementById('fullName').value);
             formData.append('email', document.getElementById('email').value);
             formData.append('age', document.getElementById('age').value);
+            formData.append('phone', document.getElementById('phone').value);
             formData.append('location', document.getElementById('location').value);
-            formData.append('whyHater', document.getElementById('whyHater').value);
-            formData.append('strategy', document.getElementById('strategy').value);
+            formData.append('haterTime', document.getElementById('haterTime').value);
+            formData.append('friendsDescribe', document.getElementById('friendsDescribe').value);
+            formData.append('smallIssue', document.getElementById('smallIssue').value);
             
             // Submit to Google Apps Script
             fetch('https://script.google.com/macros/s/AKfycbypmkC9ycZXfxo7vP9c_uRo8vtfFATPbremcoKTYDq5WAYkk-f2BUSFaEmHJzhLTETb/exec', {
