@@ -18,7 +18,10 @@
             padding: 0;
             height: 100vh;
             overflow: hidden;
-            position: relative;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
         }
 
         .video-background {
@@ -123,6 +126,10 @@
             transform: translate(-50%, 250%);
         }
 
+        .main-content.slide-up {
+            transform: translate(-50%, -350%);
+        }
+
         .about-section {
             position: absolute;
             top: 50%;
@@ -143,6 +150,130 @@
 
         .about-section.slide-down {
             transform: translate(-50%, -50%);
+        }
+
+        .application-section {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 250%);
+            text-align: left;
+            z-index: 10;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            transition: transform 0.6s ease-in-out;
+            overflow-y: auto;
+            max-height: 85vh;
+        }
+
+        .application-section.slide-up {
+            transform: translate(-50%, -50%);
+        }
+
+        .application-section h1 {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .application-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            color: white;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff1493;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-group input[type="range"] {
+            padding: 0;
+            background: transparent;
+            border: none;
+        }
+
+        .form-group input[type="range"]::-webkit-slider-track {
+            background: rgba(255, 255, 255, 0.3);
+            height: 6px;
+            border-radius: 3px;
+        }
+
+        .form-group input[type="range"]::-webkit-slider-thumb {
+            background: #ff1493;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            -webkit-appearance: none;
+        }
+
+        #haterValue {
+            color: #ff1493;
+            font-weight: 600;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+
+        .submit-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid white;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+            margin-top: 20px;
+            align-self: center;
+        }
+
+        .submit-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
         }
 
         .close-btn {
@@ -229,7 +360,7 @@
     
     <main class="main-content" id="mainContent">
         <h1 class="main-title"><span style="font-weight: 300;">hate</span> island</h1>
-        <button class="apply-btn">Apply</button>
+        <button class="apply-btn" onclick="openApplication()">Apply</button>
     </main>
 
     <section class="about-section" id="aboutSection">
@@ -264,6 +395,51 @@
         </p>
         
         <p style="font-size: 12px;">﹡Hate Island is a parody and is not affiliated with Love Island or NBC.</p>
+    </section>
+
+    <section class="application-section" id="applicationSection">
+        <button class="close-btn" onclick="closeApplication()">&times;</button>
+        <h1>Apply to Hate Island</h1>
+        
+        <form class="application-form" id="applicationForm">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="18" max="65" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Location (City, State)</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="haterLevel">Rate your hater level (1-10)</label>
+                <input type="range" id="haterLevel" name="haterLevel" min="1" max="10" value="5">
+                <span id="haterValue">5</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="whyHater">Why do you consider yourself a hater? (Max 500 characters)</label>
+                <textarea id="whyHater" name="whyHater" maxlength="500" rows="4" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="strategy">What's your strategy for winning? (Max 300 characters)</label>
+                <textarea id="strategy" name="strategy" maxlength="300" rows="3" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
     </section>
 
     <script>
@@ -302,6 +478,7 @@
             
             mainContent.classList.add('slide-down');
             aboutSection.classList.add('slide-down');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeAbout() {
@@ -310,12 +487,44 @@
             
             mainContent.classList.remove('slide-down');
             aboutSection.classList.remove('slide-down');
+            document.body.style.overflow = 'hidden';
         }
+
+        function openApplication() {
+            const mainContent = document.getElementById('mainContent');
+            const applicationSection = document.getElementById('applicationSection');
+            
+            mainContent.classList.add('slide-up');
+            applicationSection.classList.add('slide-up');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeApplication() {
+            const mainContent = document.getElementById('mainContent');
+            const applicationSection = document.getElementById('applicationSection');
+            
+            mainContent.classList.remove('slide-up');
+            applicationSection.classList.remove('slide-up');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Update hater level display
+        document.getElementById('haterLevel').addEventListener('input', function(e) {
+            document.getElementById('haterValue').textContent = e.target.value;
+        });
+
+        // Handle form submission
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thanks for applying! We\'ll be in touch soon.');
+            closeApplication();
+        });
 
         // Close with Escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeAbout();
+                closeApplication();
             }
         });
     </script>
