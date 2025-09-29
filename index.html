@@ -82,7 +82,7 @@
         .main-title {
             font-family: 'Josefin Sans', sans-serif;
             font-size: clamp(4rem, 12vw, 8rem);
-            font-weight: 700;
+            font-weight: 500;
             color: white;
             text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
             margin-bottom: 40px;
@@ -339,7 +339,7 @@
     </header>
     
     <main class="main-content" id="mainContent">
-        <h1 class="main-title"><span style="font-weight: 300;">hate</span> island</h1>
+        <h1 class="main-title">hate <span style="font-weight: 300;">island</span></h1>
         <button class="apply-btn" onclick="openApplication()">Apply</button>
     </main>
 
@@ -523,7 +523,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    alert('Thanks for applying! We\'ll be in touch soon.');
+                    alert('Thanks for submitting! We\'ll be in touch soon.');
                     document.getElementById('applicationForm').reset();
                     closeApplication();
                 } else {
@@ -535,7 +535,7 @@
                 console.error('Error:', error);
             })
             .finally(() => {
-                submitBtn.textContent = 'Submit Application';
+                submitBtn.textContent = 'Submit';
                 submitBtn.disabled = false;
             });
         });
